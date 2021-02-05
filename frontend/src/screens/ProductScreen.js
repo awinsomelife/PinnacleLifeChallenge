@@ -1,3 +1,5 @@
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { detailsProduct } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -21,6 +23,7 @@ export default function ProductScreen(props) {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
+        <div>
             <Link to="/">Back to result</Link>
             <div className="row top">
               <div className="col-1">
@@ -77,6 +80,7 @@ export default function ProductScreen(props) {
 
                 </div>
               </div>
+            </div>
             </div>
             
       )}

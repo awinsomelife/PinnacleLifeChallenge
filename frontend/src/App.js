@@ -1,13 +1,22 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
+import Scan from './container/Scan';
 
 function App() {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+  let routes = (
+    <Switch>
+    <Route path="/cart/:id?" component={CartScreen}></Route>
+    <Route path="/product/:id" component={ProductScreen}></Route>
+    <Route path="/" component={Scan} exact></Route>
+    <Route path='/purchases' component={HomeScreen}> </Route>
+    </Switch>
+    )
   return (
     <BrowserRouter>
       <div className="grid-container">
@@ -33,9 +42,8 @@ function App() {
           </div>
         </header>
         <main>
-          <Route path="/cart/:id?" component={CartScreen}></Route>
-          <Route path="/product/:id" component={ProductScreen}></Route>
-          <Route path="/" component={HomeScreen} exact></Route>
+          {routes}
+        
         </main>
         <footer className="row center">All right reserved</footer>
       </div>

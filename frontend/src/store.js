@@ -5,7 +5,8 @@ import {
     productListReducer,
   } from './reducers/productReducers';
   import { cartReducer } from './reducers/CartReducers';
-
+  import scannedItems from './reducers/ScannedItems'
+  
   const initialState = {
     cart: {
       cartItems: localStorage.getItem('cartItems')
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   cart: cartReducer,
+  scanned: scannedItems,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(

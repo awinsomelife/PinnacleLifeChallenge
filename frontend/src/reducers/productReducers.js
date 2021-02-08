@@ -1,3 +1,4 @@
+
 const {
     PRODUCT_LIST_REQUEST,
     PRODUCT_LIST_SUCCESS,
@@ -8,7 +9,7 @@ const {
   } = require('../constants/productConstants');
   
   export const productListReducer = (
-    state = { loading: true, products: [] },
+    state = { loading: true, products: [] }, //product set empty array
     action
   ) => {
     switch (action.type) {

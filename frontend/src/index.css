@@ -79,6 +79,10 @@ ul {
 li {
   margin-top: 1rem;
 }
+input,
+select,
+textarea,
+
 button {
   padding: 1rem;
   border-radius: 0.5rem;
@@ -87,9 +91,16 @@ button {
   font-family: times;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+button{
   background-color: #f8f8f8;
   cursor: pointer;
 }
+
+input:hover,
+select:hover,
+textarea:hover,
+
 button:hover {
   border: 0.1rem #404040 solid;
 }
@@ -111,6 +122,16 @@ a.brand {
   font-size: 3rem;
   font-weight: bold;
 }
+
+.badge {
+  background-color: #f02020;
+  color: #ffffff;
+  border-radius: 50%;
+  padding: 0.2rem 0.7rem;
+  font-size: 1.4rem;
+  margin-left: 0.2rem;
+}
+
 /*Use flex for header*/
 .row {
   display: flex;
@@ -132,11 +153,20 @@ a.brand {
   flex: 2 1 50rem;
 }
 
+.min-30 {
+  min-width: 30rem;
+}
 
 /* Image */
 img {
   border-radius: 0.5rem;
 }
+
+img.small {
+  max-width: 5rem;
+  width: 100%;
+}
+
 img.medium {
   max-width: 29rem;
   width: 100%;

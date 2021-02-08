@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 export default function product(props) {
   const { product } = props;
   
   return (
     <div key={product._id} className="card">
-      <a href={`/product/${product._id}`}>
+      <Link to={`/product/${product._id}`}>
       <img className="medium" src={product.image} alt={product.name} />
-      </a>
+      </Link>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
-import HomeScreen from './screens/HomeScreen';
+import ProductHomeScreen from './screens/ProductHomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
 import Scan from './container/Scan';
@@ -13,8 +13,8 @@ function App() {
     <Switch>
     <Route path="/cart/:id?" component={CartScreen}></Route>
     <Route path="/product/:id" component={ProductScreen}></Route>
-    <Route path="/" component={Scan} exact></Route>
-    <Route path='/purchases' component={HomeScreen}> </Route>
+    <Route path="/products" component={ ProductHomeScreen} exact></Route>
+    <Route path="/purchases" component={ Scan } exact></Route>
     </Switch>
     )
   return (
@@ -27,23 +27,23 @@ function App() {
           </Link>
           
           </div>
+          
           <div>
-            <a href="/objectives">My Objectives</a>
-            <a href="/products">My Products</a>
-            <a href="/purchases">My Purchases</a>
-            <a href="/budgetsheet">My Budget Sheet</a>
+            <Link to="/objectives">My Objectives</Link>
+            <Link to="/products">My Products</Link>
+            <Link to="/purchases">My Purchases</Link>
             <Link to="/cart">
-              Cart
+              My Cart
               {cartItems.length > 0 && (
                 <span className="badge">{cartItems.length}</span>
               )}
             </Link>
-            <Link to="/signin">Sign In</Link>
+            <Link to="/budgetsheet">My Budget Sheet</Link>
+            <Link to="/login">Login</Link>
           </div>
         </header>
         <main>
-          {routes}
-        
+        {routes}
         </main>
         <footer className="row center">All right reserved</footer>
       </div>

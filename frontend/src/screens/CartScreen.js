@@ -32,7 +32,7 @@ export default function CartScreen(props) {
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <MessageBox>
-            Cart is empty. <Link to="/">Go Shopping</Link>
+            Cart is empty. <Link to="/purchases">Go Shopping</Link>
           </MessageBox>
         ) : (
           <ul>
@@ -61,11 +61,14 @@ export default function CartScreen(props) {
                       {[...Array(item.countInStock).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
                           {x + 1}
+                          
                         </option>
+                        
                       ))}
                     </select>
                   </div>
-                  <div>${item.fPrice}</div>
+                  <div>${item.price}</div>
+                  
                   <div>
                     <button
                       type="button"

@@ -18,6 +18,7 @@ export default function ProductHomeScreen() {
     dispatch(listProducts());
   }, [dispatch]);
   
+  
   return (
 
     <div>
@@ -26,11 +27,11 @@ export default function ProductHomeScreen() {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
+        
             <div className="row center">
-              {products.map((product) => (
-                
+              {
+              products.map((product) => (
                   <Product key={product._id} product={product}></Product>
-              
               ))}
 
             </div>
@@ -38,4 +39,3 @@ export default function ProductHomeScreen() {
     </div>
   );
 }
-

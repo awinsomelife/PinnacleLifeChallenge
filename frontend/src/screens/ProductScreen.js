@@ -16,12 +16,12 @@ export default function ProductScreen(props) {
   useEffect(() => {
     dispatch(detailsProduct(productId));
   }, [dispatch, productId]);
-
+  
   // set path once add to cart
   const addToCartHandler = () => {
     props.history.push(`/cart/${productId}?qty=${qty}`);
   };
-
+  
   return (
     <div>
       {loading ? (
@@ -33,6 +33,7 @@ export default function ProductScreen(props) {
             <Link to="/products">Back to result</Link>
             <div className="row top">
               <div className="col-1">
+
                 <img className="large" src={product.image} alt={product.name}></img>
               </div>
               <div className="col-1">

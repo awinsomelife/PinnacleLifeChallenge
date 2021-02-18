@@ -13,12 +13,14 @@ export default function ProductHomeScreen() {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
   
+  
 
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch]);
   
-  
+  //console.log(Object.entries(products))
+ 
   return (
 
     <div>
@@ -30,7 +32,7 @@ export default function ProductHomeScreen() {
         
             <div className="row center">
               {
-              products.map((product) => (
+              Object.entries(products).map(([productId, product]) => (
                   <Product key={product._id} product={product}></Product>
               ))}
 

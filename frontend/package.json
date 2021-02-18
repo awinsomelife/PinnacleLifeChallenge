@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "proxy": "https://pinnaclelife-2021-default-rtdb.firebaseio.com/",
+  "proxy": "https://pinnaclelife-2021-default-rtdb.firebaseio.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

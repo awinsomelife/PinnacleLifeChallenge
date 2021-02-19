@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { detailsProduct } from '../actions/productActions';
-// import LoadingBox from '../components/LoadingBox';
+ import LoadingBox from '../components/LoadingBox';
 // import MessageBox from '../components/MessageBox';
 import { Link } from 'react-router-dom';
 import Axios from "axios";
@@ -135,7 +135,7 @@ export default function ProductScreen(props) {
             </div>
         
       ) : (
-        <div>Loading</div>
+        <LoadingBox></LoadingBox>
       )}
     </div>
   );

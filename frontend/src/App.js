@@ -53,6 +53,7 @@ function App() {
                 <span className="badge">{cartItems.length}</span>
               )}
             </Link>
+            <Link to="/budgetsheet">My Budget Sheet</Link>
             {userInfo ? (
               <div className="dropdown">
                 <Link to="#">
@@ -69,7 +70,7 @@ function App() {
             ) : (
               <Link to="/signin">Sign In</Link>
             )}
-            <Link to="/budgetsheet">My Budget Sheet</Link>
+ 
             
           </div>
         </header>

@@ -10,6 +10,7 @@ export const signin = (username, password) => async (dispatch) => {
   dispatch({ type: USER_SIGNIN_REQUEST, payload: { username, password } });
   try {
     const { data } = await Axios.get(`/accounts/${username}.json`);
+    
     if (password === data.password)
     {
       data.username = username

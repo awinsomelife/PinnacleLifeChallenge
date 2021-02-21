@@ -8,13 +8,35 @@ import {
   PRODUCT_LIST_SUCCESS,
 } from '../constants/productConstants';
 
-export const listProducts = () => async (dispatch) => {
-  dispatch({
-    type: PRODUCT_LIST_REQUEST,
+export const listProducts = (userId) => async (dispatch) => {
+  dispatch({ type: PRODUCT_LIST_REQUEST,
   });
+  console.log(userId)
+  
   try {
-    const { data } = await Axios.get('/product/BHA/Y01.json');
-    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+    
+    const { year } = await Axios.get('/year.json')
+    console.log(year);
+
+    if (year === "Y01")
+    {
+      const { data } = await Axios.get(`/product/${userId}/Y01.json`);
+      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+      return data;
+    }
+
+    else if (year === "Y02")
+    {
+      const { data } = await Axios.get(`/product/${userId}/Y02.json`);
+      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+      return data;
+    }
+    else 
+    {
+      const { data } = await Axios.get(`/product/${userId}/Y03.json`);
+      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+    }
+
   } catch (error) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
   }

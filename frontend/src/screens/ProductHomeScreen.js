@@ -13,11 +13,15 @@ export default function ProductHomeScreen() {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
   
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const userId = userInfo.company;
+  
   
 
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(userId));
+  }, [dispatch, userId]);
   
   //console.log(Object.entries(products))
  

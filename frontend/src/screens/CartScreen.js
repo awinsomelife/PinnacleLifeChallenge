@@ -5,6 +5,11 @@ import { addToCart, removeFromCart } from '../actions/CartActions';
 import MessageBox from '../components/MessageBox';
 
 export default function CartScreen(props) {
+
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const userId = userInfo.id
+
   const productId = props.match.params.id;
   const qty = props.location.search //variable return 
     ? Number(props.location.search.split('=')[1])
@@ -14,12 +19,12 @@ export default function CartScreen(props) {
     const dispatch = useDispatch();
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, qty));
+      dispatch(addToCart(productId, qty, userId));
     }
-  }, [dispatch, productId, qty]);
-  const removeFromCartHandler = (id) => {
+  }, [dispatch, productId, qty, userId]);
+  const removeFromCartHandler = (productId) => {
     // delete action
-    dispatch(removeFromCart(id));
+    dispatch(removeFromCart(userId, productId));
   };
 
   const checkoutHandler = () => {

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Axios from "axios";
 
 const getProductDetails = async (productId) => {
-  const { data } = await Axios.get(`/product/BHA.json?orderBy="_id"&equalTo="${productId}"`); // "get product details from product id"
+  const { data } = await Axios.get(`/product/BHA/Y01.json?orderBy="_id"&equalTo="${productId}"`); // "get product details from product id"
   console.log(data);
   const product = data[productId];
   console.log(product);
@@ -136,7 +136,7 @@ export default function ProductScreen(props) {
         
       ) : (
         <LoadingBox></LoadingBox>
-      )}
+      ) }
     </div>
   );
 }

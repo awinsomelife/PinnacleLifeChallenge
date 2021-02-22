@@ -33,7 +33,6 @@ export default function ProductHomeScreen() {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        
             <div className="row center">
               {
               Object.entries(products).map(([productId, product]) => (

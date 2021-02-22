@@ -11,31 +11,47 @@ import {
 export const listProducts = (userId) => async (dispatch) => {
   dispatch({ type: PRODUCT_LIST_REQUEST,
   });
-  console.log(userId)
   
   try {
     
-    const { year } = await Axios.get('/year.json')
-    console.log(year);
-
-    if (year === "Y01")
+    const getYear = async () => {
+      const year = await Axios.get('/year.json')
+      return year;
+    } 
+    
+    getYear().then ((axiosResult) => {
+      let result = axiosResult;
+      console.log(result.data.session)
+    
+      return getYear()
+      .then(axiosResult => {
+       //console.log(result)
+      // console.log("userID : " + userId)
+      
+    if (result.data.session === "Y01")
     {
-      const { data } = await Axios.get(`/product/${userId}/Y01.json`);
+    
+      const { data }  =  Axios.get(`/product/${userId}/Y01.json`)
+      console.log({data})
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
-      return data;
+      
+      
     }
 
-    else if (year === "Y02")
+    else if (result.data.session === "Y02")
     {
-      const { data } = await Axios.get(`/product/${userId}/Y02.json`);
+      const { data } = Axios.get(`/product/${userId}/Y02.json`);
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
       return data;
     }
     else 
     {
-      const { data } = await Axios.get(`/product/${userId}/Y03.json`);
+      const { data } = Axios.get(`/product/${userId}/Y03.json`);
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     }
+
+  }) //return result.then(result
+  } ) //then ((axiosResult)
 
   } catch (error) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });

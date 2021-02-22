@@ -6,16 +6,22 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from "axios";
 
-const getProductDetails = async (productId) => {
+const getProductDetails = async (productId, barcode) => {
   const { data } = await Axios.get(`/product/BHA/Y01.json?orderBy="_id"&equalTo="${productId}"`); // "get product details from product id"
+  const { barcodedata } = await Axios.get(`/product/${barcode}.json`)
+  console.log(barcodedata);
   console.log(data);
   const product = data[productId];
+  const barcodeproduct = barcodedata[barcode];
+  console.log(barcodeproduct)
+
   console.log(product);
-  return product;
+  return product
 };
 
 export default function ProductScreen(props) {
   const productId = props.match.params.id;
+  const barcode = props.match.params.id;
   const [productDetails, setProductDetails] = useState({});
   const [qty, setQty] = useState(1);
 
@@ -23,7 +29,7 @@ export default function ProductScreen(props) {
 
   useEffect(() => {
     console.log("hi");
-    getProductDetails(productId).then((productDetails) => {
+    getProductDetails(productId, barcode).then((productDetails) => {
       console.log(
         "Here's the productDetails that will be saved into productDetails state:"
       );
@@ -31,7 +37,7 @@ export default function ProductScreen(props) {
       setProductDetails(productDetails);
       // You can do whatever you want here.
     });
-  }, [productId]);
+  }, [productId, barcode]);
 
   // set path once add to cart
   const addToCartHandler = () => {

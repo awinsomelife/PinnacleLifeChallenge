@@ -5,27 +5,35 @@ import React, { useEffect, useState } from 'react';
 // import MessageBox from '../components/MessageBox';
 import { Link } from 'react-router-dom';
 import Axios from "axios";
+import { useSelector } from 'react-redux';
 
-const getProductDetails = async (productId, barcode) => {
-  const { data } = await Axios.get(`/product/BHA/Y01.json?orderBy="_id"&equalTo="${productId}"`); // "get product details from product id"
-  const { barcodedata } = await Axios.get(`/product/${barcode}.json`)
-  console.log(barcodedata);
-  console.log(data);
-  const product = data[productId];
-  const barcodeproduct = barcodedata[barcode];
-  console.log(barcodeproduct)
 
-  console.log(product);
-  return product
-};
+
 
 export default function ProductScreen(props) {
   const productId = props.match.params.id;
   const barcode = props.match.params.id;
   const [productDetails, setProductDetails] = useState({});
   const [qty, setQty] = useState(1);
-
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const userId = userInfo.company;
   
+  const getProductDetails = async (productId, barcode) => {
+    const yearRes= await Axios.get('/year.json')
+    const year = yearRes.data.session;
+  
+    const { data } = await Axios.get(`/product/${userId}/${year}.json?orderBy="_id"&equalTo="${productId}"`); // "get product details from product id"
+    const { barcodedata } = await Axios.get(`/product/${barcode}.json`)
+    console.log(barcodedata);
+    console.log(data);
+    const product = data[productId];
+    //const barcodeproduct = barcodedata[barcode];
+    //console.log(barcodeproduct)
+  
+    console.log(product);
+    return product
+  };
 
   useEffect(() => {
     console.log("hi");

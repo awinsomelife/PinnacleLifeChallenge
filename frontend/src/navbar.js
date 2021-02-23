@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './navbar.css';
 import { Button } from "./button";
+import { signout } from './actions/userActions';
 
 function Navbar() {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const dispatch = useDispatch();
+
+  console.log(userInfo);
+
+
+  const signoutHandler = () => {
+    dispatch(signout());
+  };
 
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
@@ -92,18 +103,26 @@ function Navbar() {
               >
                 My Budget Sheet
           </Link>
-            </li>
-            <li className='nav-item'>
-              <Link
-                to="/login"
-                className='nav-links-mobile'
-                onClick={closeMobileMenu}
-              >
-                Login
-          </Link>
+              {userInfo ? (
+                <div className="dropdown">
+                  <Link to="#">
+                    {userInfo.username} <i className="fa fa-caret-down"></i>{' '}
+                  </Link>
+                  <ul className="dropdown-content">
+                    <li>
+                      <Link to="#signout" onClick={signoutHandler}>
+                        Sign Out
+                    </Link>
+                    </li>
+                  </ul>
+                </div>
+              ) : (
+                  <Link to="/signin">Sign In</Link>
+                )}
+
             </li>
           </ul>
-          {button && <Button buttonStyle='btn--outline'>LOGIN</Button>}
+          {button && <Button buttonStyle='btn--outline'>SIGN IN</Button>}
         </div>
       </nav>
     </>

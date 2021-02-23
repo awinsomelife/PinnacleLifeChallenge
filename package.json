@@ -18,10 +18,13 @@
   },
   "homepage": "https://github.com/zygoh1986/PinnacleLifeChallenge#readme",
   "dependencies": {
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "express": "^4.17.1",
     "firebase": "^8.2.7",
     "firebase-admin": "^9.5.0",
-    "mongoose": "^5.11.16"
+    "mongoose": "^5.11.16",
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5"
   },
   "devDependencies": {
     "eslint": "^7.19.0",

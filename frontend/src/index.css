@@ -1,13 +1,12 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -23,7 +22,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-#root{
+#root {
   height: 100%;
 }
 
@@ -31,17 +30,16 @@ body {
 .grid-container {
   display: grid;
   grid-template-areas:
-    'header'
-    'main'
-    'footer';
+    "header"
+    "main"
+    "footer";
   grid-template-columns: 1fr; /*only 1 fragment*/
   grid-template-rows: 5rem 1fr 5rem; /*3 rows*/
-  height: 100%; 
+  height: 100%;
 }
 header {
   grid-area: header;
   background-color: navy;
-  
 }
 main {
   grid-area: main;
@@ -63,7 +61,6 @@ h2 {
   padding: 1rem 0;
 }
 
-
 a {
   text-decoration: none;
 }
@@ -82,7 +79,6 @@ li {
 input,
 select,
 textarea,
-
 button {
   padding: 1rem;
   border-radius: 0.5rem;
@@ -92,7 +88,7 @@ button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-button{
+button {
   background-color: #f8f8f8;
   cursor: pointer;
 }
@@ -100,7 +96,6 @@ button{
 input:hover,
 select:hover,
 textarea:hover,
-
 button:hover {
   border: 0.1rem #404040 solid;
 }
@@ -178,7 +173,7 @@ img.large {
 
 /* Card */
 .card {
-  border: 0.1rem black solid; 
+  border: 0.1rem black solid;
   background-color: #f8f8f8;
   border-radius: 4rem;
   margin: 1rem;

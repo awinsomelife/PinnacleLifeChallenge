@@ -1,29 +1,35 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { addToCart, removeFromCart } from '../actions/CartActions';
-import MessageBox from '../components/MessageBox';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { addToCart, removeFromCart } from "../actions/CartActions";
+import MessageBox from "../components/MessageBox";
 
 export default function CartScreen(props) {
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const userId = userInfo.id;
+
   const productId = props.match.params.id;
-  const qty = props.location.search //variable return 
-    ? Number(props.location.search.split('=')[1])
+  const qty = props.location.search //variable return
+    ? Number(props.location.search.split("=")[1])
     : 1;
-    const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, qty));
+      dispatch(addToCart(productId, qty, userId));
     }
-  }, [dispatch, productId, qty]);
-  const removeFromCartHandler = (id) => {
+  }, [dispatch, productId, qty, userId]);
+  
+  const removeFromCartHandler = (productId) => {
     // delete action
-    dispatch(removeFromCart(id));
+    dispatch(removeFromCart(userId, productId));
   };
 
   const checkoutHandler = () => {
-    props.history.push('/signin?redirect=shipping');
+    props.history.push("/signin?redirect=shipping");
   };
 
   return (
@@ -54,21 +60,23 @@ export default function CartScreen(props) {
                       value={item.qty}
                       onChange={(e) =>
                         dispatch(
-                          addToCart(item.product, Number(e.target.value))
+                          addToCart(
+                            item.product,
+                            Number(e.target.value),
+                            userId
+                          )
                         )
                       }
                     >
                       {[...Array(item.countInStock).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
                           {x + 1}
-                          
                         </option>
-                        
                       ))}
                     </select>
                   </div>
                   <div>${item.price}</div>
-                  
+
                   <div>
                     <button
                       type="button"

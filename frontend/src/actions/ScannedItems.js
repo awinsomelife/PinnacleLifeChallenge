@@ -1,5 +1,11 @@
-import {APIKEY, URL_PATH, URL_EXTENSION} from './config'
+//import {APIKEY, URL_PATH, URL_EXTENSION} from './config'
 
+import {
+  PRODUCT_DETAILS_REQUEST,
+  PRODUCT_DETAILS_FAIL,
+  PRODUCT_DETAILS_SUCCESS,
+} from '../constants/productConstants';
+import Axios from 'axios'
 export const startScanning = () => {
   return {
     type: "START_SCANNING"
@@ -26,51 +32,69 @@ export const deleteItem = (i) => {
   }
 }
 
-export const processBarcode = (barcode) => {
-  return dispatch => {
-    dispatch(spinnerOn())
-    
-    let url = URL_PATH + barcode + URL_EXTENSION + APIKEY
-    
-    let req = new Request(url , {
-      headers: {
-        'Access-Control-Allow-Origin': 'http://localhost:3000'
-      },
-      mode: 'no-cors'
-    })
-    
-    let product = null
-    fetch(req)
-    .catch(err => console.log('error', err))
-    .then(res => {
-      console.log(res.status)
-      if(res.status !== 200){
-        return {
-          resStatus: res.status
-        }
-      } else if(res.status === 200) {
-        return res.json()
-      }
-    })
-    .then(parsedRes => {
-      if(parsedRes.resStatus !== 200){
-        parsedRes.resStatus === 0 ? dispatch(invalidBarcode('noAPI')) : dispatch(invalidBarcode('invalid'))
-      } else {
-        product = {
-        //   barcode_number: parsedRes.products[0].barcode_number,
-        //   barcode_type: parsedRes.products[0].barcode_type,
-        //   product_name: parsedRes.products[0].product_name,
-        //   product_image: parsedRes.products[0].images[0],
-        //   manufacturer: parsedRes.products[0].manufacturer,
-        //   brand: parsedRes.products[0].brand,
-        //   category: parsedRes.products[0].category,
-        //   description: parsedRes.products[0].description,
-        }
-        dispatch(productDetected(product))
-      } 
-    })
+export const processBarcode = (barcode) => async (dispatch ) => {
+  dispatch ({type: PRODUCT_DETAILS_REQUEST, payload: barcode})
+  try{
+    const { data } = await Axios.get(`/product/${barcode}.json`);
+      dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
+
+  } catch (error){
+    dispatch({
+      type: PRODUCT_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+
   }
-  }
+};
+
+// export const processBarcode = (barcode) => {
+//   return dispatch => {
+//     dispatch(spinnerOn())
+    
+//     let url = URL_PATH + barcode + URL_EXTENSION + APIKEY
+    
+//     let req = new Request(url , {
+//       headers: {
+//         'Access-Control-Allow-Origin': 'http://localhost:3000'
+//       },
+//       mode: 'no-cors'
+//     })
+    
+//     let product = null
+//     fetch(req)
+//     .catch(err => console.log('error', err))
+//     .then(res => {
+//       console.log(res.status)
+//       if(res.status !== 200){
+//         return {
+//           resStatus: res.status
+//         }
+//       } else if(res.status === 200) {
+//         return res.json()
+//       }
+//     })
+//     .then(parsedRes => {
+//       if(parsedRes.resStatus !== 200){
+//         parsedRes.resStatus === 0 ? dispatch(invalidBarcode('noAPI')) : dispatch(invalidBarcode('invalid'))
+//       } else {
+//         product = {
+//         //   barcode_number: parsedRes.products[0].barcode_number,
+//         //   barcode_type: parsedRes.products[0].barcode_type,
+//         //   product_name: parsedRes.products[0].product_name,
+//         //   product_image: parsedRes.products[0].images[0],
+//         //   manufacturer: parsedRes.products[0].manufacturer,
+//         //   brand: parsedRes.products[0].brand,
+//         //   category: parsedRes.products[0].category,
+//         //   description: parsedRes.products[0].description,
+//         }
+//         dispatch(productDetected(product))
+//       } 
+//     })
+//   }
+//   }
 
 export const spinnerOn = () => {
   return {

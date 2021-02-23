@@ -13,11 +13,16 @@ export default function ProductHomeScreen() {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
   
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const userId = userInfo.company;
 
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(userId));
+  }, [dispatch, userId]);
   
+  //console.log(Object.entries(products))
+ 
   return (
 
     <div>
@@ -27,10 +32,9 @@ export default function ProductHomeScreen() {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
             <div className="row center">
-              {products.map((product) => (
-                
+              {
+              Object.entries(products).map(([productId, product]) => (
                   <Product key={product._id} product={product}></Product>
-              
               ))}
 
             </div>
@@ -38,4 +42,3 @@ export default function ProductHomeScreen() {
     </div>
   );
 }
-

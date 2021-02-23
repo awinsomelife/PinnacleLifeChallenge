@@ -16,8 +16,6 @@ export default function ProductHomeScreen() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   const userId = userInfo.company;
-  
-  
 
   useEffect(() => {
     dispatch(listProducts(userId));

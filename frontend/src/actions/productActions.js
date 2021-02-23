@@ -40,3 +40,21 @@ export const detailsProduct = (userId, year, productId) => async (dispatch) => {
     });
   }
 };
+
+export const processBarcode = (barcode) => async (dispatch ) => {
+  dispatch ({type: PRODUCT_DETAILS_REQUEST, payload: barcode})
+  try{
+    const { data } = await Axios.get(`/product/${barcode}.json`);
+      dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
+
+  } catch (error){
+    dispatch({
+      type: PRODUCT_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+
+  }
+};

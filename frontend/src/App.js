@@ -5,7 +5,8 @@ import ProductHomeScreen from './screens/ProductHomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
-import Scan from './container/Scan';
+import ScanScreen from './screens/ScanScreen';
+import ObjectiveScreen from './screens/ObjectiveScreen'
 import { signout } from './actions/userActions';
 
 
@@ -28,8 +29,9 @@ function App() {
     <Route path="/cart/:id?" component={CartScreen}></Route>
     <Route path="/product/:id" component={ProductScreen}></Route>
     <Route path="/products" component={ ProductHomeScreen} exact></Route>
-    <Route path="/purchases" component={ Scan } exact></Route>
-    <Route path="/signin" component={SigninScreen}></Route>
+    <Route path="/purchases" component={ ScanScreen } exact></Route>
+    <Route path="/" component={SigninScreen}></Route>
+    <Route path="/objectives" component={ObjectiveScreen}></Route>
     </Switch>
     )
   return (

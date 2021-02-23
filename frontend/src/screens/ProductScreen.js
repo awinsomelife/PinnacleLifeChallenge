@@ -7,45 +7,37 @@ import { Link } from 'react-router-dom';
 import Axios from "axios";
 import { useSelector } from 'react-redux';
 
-
-
-
 export default function ProductScreen(props) {
   const productId = props.match.params.id;
-  const barcode = props.match.params.id;
+  console.log(productId)
   const [productDetails, setProductDetails] = useState({});
   const [qty, setQty] = useState(1);
+
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   const userId = userInfo.company;
   
-  const getProductDetails = async (productId, barcode) => {
+  const getProductDetails = async (productId) => {
     const yearRes= await Axios.get('/year.json')
     const year = yearRes.data.session;
-  
     const { data } = await Axios.get(`/product/${userId}/${year}.json?orderBy="_id"&equalTo="${productId}"`); // "get product details from product id"
-    const { barcodedata } = await Axios.get(`/product/${barcode}.json`)
-    console.log(barcodedata);
-    console.log(data);
+
     const product = data[productId];
-    //const barcodeproduct = barcodedata[barcode];
-    //console.log(barcodeproduct)
-  
     console.log(product);
     return product
   };
 
   useEffect(() => {
     console.log("hi");
-    getProductDetails(productId, barcode).then((productDetails) => {
+    getProductDetails(productId).then((productDetails) => {
       console.log(
         "Here's the productDetails that will be saved into productDetails state:"
       );
       console.log(productDetails);
       setProductDetails(productDetails);
-      // You can do whatever you want here.
+      
     });
-  }, [productId, barcode]);
+  }, );
 
   // set path once add to cart
   const addToCartHandler = () => {
@@ -56,7 +48,7 @@ export default function ProductScreen(props) {
 
     <div>
 
-      {Object.keys(productDetails).length !== 0 ? (
+      {Object.keys(productDetails).length !== null ? (
       
          <div>
             <Link to="/products">Back to result</Link>

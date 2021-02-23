@@ -1,57 +1,49 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Quagga from 'quagga'
 import './Scanner.css'
 
 class Scanner extends Component {
-
-  constructor(props){
-    super(props);
-    this.state ={
-      nocamera: false
-    }
-    this.onDetect = this.onDetect.bind(this)
-  }
-
-  
-  componentDidMount(){
-    Quagga.init({
-      inputStream: {
-        name: "Live",
-        type: "LiveStream",
-        constraints: {
-          width: '790',
-          height: '490'
+  componentDidMount() {
+    Quagga.init(
+      {
+        inputStream: {
+          type: 'LiveStream',
+          constraints: {
+            width: 640,
+            height: 480,
+            facingMode: 'environment', // or user
+          },
         },
-        numberOfWorkers: navigator.hardwareConcurrency,
-        target: document.querySelector('#barcodeScan')
+        locator: {
+          patchSize: 'medium',
+          halfSample: true,
+        },
+        numOfWorkers: 4,
+        decoder: {
+          readers: ['code_128_reader'],
+        },
+        locate: true,
       },
-      locate: true,
-      decoder: {
-        readers: ["code_128_reader", "upc_reader", "upc_e_reader"]
-      }
-    }, function (err) {
-      if (err) {
-        return 
-      }
-      Quagga.start()
-    })
-    Quagga.onDetected(this.onDetect)
-    
+      function(err) {
+        if (err) {
+          return console.log(err)
+        }
+        Quagga.start()
+      },
+    )
+    Quagga.onDetected(this._onDetected)
   }
 
-  onDetect(res){
-    // console.log(res.codeResult.code)
-    Quagga.stop()
-    Quagga.offProcessed()
-    this.props.onBarcodeDetect(res.codeResult.code)
+  componentWillUnmount() {
+    Quagga.offDetected(this._onDetected)
+  }
+
+  _onDetected = result => {
+    this.props.onDetected(result)
   }
 
   render() {
-    return (
-      <Fragment>
-            <div id="barcodeScan"></div>
-      </Fragment>
-    )
+    return <div id="interactive" className="viewport" />
   }
 }
 
